@@ -1,48 +1,42 @@
-import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import React from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { Typography, Box, Button } from '@mui/material';
 
-const JobDetails = ({ role }) => {
+function JobDetails({ jobs }) {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [job, setJob] = useState(null);
 
-  useEffect(() => {
-    // Fetch job details based on the job ID
-    const jobData = JSON.parse(localStorage.getItem("jobs")).find((job) => job.id === id);
-    setJob(jobData);
-  }, [id]);
+  const job = jobs.find((job) => job.id === id);
 
-  const handleDelete = () => {
-    // Delete job logic for employer
-    if (role === "employer" && job) {
-      let jobs = JSON.parse(localStorage.getItem("jobs"));
-      jobs = jobs.filter((job) => job.id !== id);
-      localStorage.setItem("jobs", JSON.stringify(jobs));
-      navigate("/employer/joblist");
-    }
-  };
+  if (!job) {
+    return <Typography variant="h6">Job not found</Typography>;
+  }
 
-  const handleUpdate = () => {
-    // Navigate to a job update page for employer
-    if (role === "employer") {
-      navigate(`/employer/jobdetails/${id}/edit`);
-    }
-  };
-
-  if (!job) return <div>Loading...</div>;
+  const { title, company, description, location, salary } = job;
 
   return (
-    <div>
-      <h1>{job.title}</h1>
-      <p>{job.description}</p>
-      {role === "employer" && (
-        <>
-          <button onClick={handleUpdate}>Update Job</button>
-          <button onClick={handleDelete}>Delete Job</button>
-        </>
-      )}
-    </div>
+    <Box>
+      <Typography variant="h4" gutterBottom>
+        {title}
+      </Typography>
+      <Typography variant="h6" color="textSecondary" gutterBottom>
+        {company} | {location}
+      </Typography>
+      <Typography variant="body1" paragraph>
+        {description}
+      </Typography>
+      <Typography variant="h6">Salary: {salary}</Typography>
+      
+      <Button 
+        variant="contained" 
+        color="primary" 
+        onClick={() => navigate('/jobs')}
+        sx={{ mt: 2 }}
+      >
+        Back to Job Listings
+      </Button>
+    </Box>
   );
-};
+}
 
 export default JobDetails;

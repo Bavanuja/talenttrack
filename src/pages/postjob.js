@@ -1,45 +1,99 @@
 import React, { useState } from "react";
+import { Container, Typography, TextField, Button, Grid } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const PostJob = () => {
-  const [jobData, setJobData] = useState({ title: "", description: "" });
+  const [title, setTitle] = useState("");
+  const [company, setCompany] = useState("");
+  const [location, setLocation] = useState("");
+  const [description, setDescription] = useState("");
+  const navigate = useNavigate();
 
-  const handleChange = (e) => {
-    setJobData({ ...jobData, [e.target.name]: e.target.value });
-  };
+  // Handle form submission
+  const handleSubmit = (event) => {
+    event.preventDefault();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const newJob = {
-      ...jobData,
-      id: Date.now(),
-      postedBy: "employer", // Mark job as posted by employer
-    };
-    const jobs = JSON.parse(localStorage.getItem("jobs")) || [];
-    jobs.push(newJob);
-    localStorage.setItem("jobs", JSON.stringify(jobs));
-    alert("Job posted successfully!");
+    const newJob = { title, company, location, description, id: Date.now() };
+
+    // Retrieve existing jobs from localStorage
+    const storedJobs = JSON.parse(localStorage.getItem("jobs")) || [];
+
+    // Add the new job to the list
+    storedJobs.push(newJob);
+
+    // Save the updated list back to localStorage
+    localStorage.setItem("jobs", JSON.stringify(storedJobs));
+
+    // Redirect to the job list page after posting
+    navigate("/joblist");
   };
 
   return (
-    <div>
-      <h1>Post a Job</h1>
+    <Container>
+      <Typography variant="h4" gutterBottom>
+        Post a New Job
+      </Typography>
+
       <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="title"
-          placeholder="Job Title"
-          value={jobData.title}
-          onChange={handleChange}
-        />
-        <textarea
-          name="description"
-          placeholder="Job Description"
-          value={jobData.description}
-          onChange={handleChange}
-        ></textarea>
-        <button type="submit">Post Job</button>
+        <Grid container spacing={3}>
+          <Grid item xs={12}>
+            <TextField
+              label="Job Title"
+              variant="outlined"
+              fullWidth
+              required
+              margin="normal"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            />
+          </Grid>
+
+          <Grid item xs={12}>
+            <TextField
+              label="Company Name"
+              variant="outlined"
+              fullWidth
+              required
+              margin="normal"
+              value={company}
+              onChange={(e) => setCompany(e.target.value)}
+            />
+          </Grid>
+
+          <Grid item xs={12}>
+            <TextField
+              label="Location"
+              variant="outlined"
+              fullWidth
+              required
+              margin="normal"
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
+            />
+          </Grid>
+
+          <Grid item xs={12}>
+            <TextField
+              label="Job Description"
+              variant="outlined"
+              fullWidth
+              required
+              multiline
+              rows={4}
+              margin="normal"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+            />
+          </Grid>
+
+          <Grid item xs={12}>
+            <Button type="submit" variant="contained" color="primary" fullWidth>
+              Post Job
+            </Button>
+          </Grid>
+        </Grid>
       </form>
-    </div>
+    </Container>
   );
 };
 

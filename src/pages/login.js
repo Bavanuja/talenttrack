@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Container, TextField, Button, Typography, Box, Paper } from "@mui/material";
 import { useNavigate, useLocation } from "react-router-dom";
+import axios from "axios";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -16,17 +17,36 @@ const Login = () => {
     }
   }, [location.state]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
   
-    // Retrieve stored user data from localStorage
-    const storedUserData = JSON.parse(localStorage.getItem("user"));
+    try {
+      // Fetch users from JSON Server
+      const response = await axios.get("http://localhost:3001/users");
+      const users = response.data;
   
-    if (storedUserData && storedUserData.email === email && storedUserData.password === password) {
-      alert("Login successful!");
-      navigate(`/${role}`); // Redirect based on role (employee or employer)
-    } else {
-      alert("Invalid email or password!");
+      // Check if the entered email and password match any user
+      const user = users.find(
+        (user) => user.email === email && user.password === password
+      );
+  
+      if (user) {
+        alert("Login successful!");
+        localStorage.setItem("user", JSON.stringify(user));
+        localStorage.setItem("role", user.role);
+  
+        // Redirect based on role
+        if (user.role === "employee") {
+          navigate("/home"); // Redirect employees to the home page
+        } else if (user.role === "employer") {
+          navigate("/postjob"); // Redirect employers to the post job page
+        }
+      } else {
+        alert("Invalid email or password!");
+      }
+    } catch (error) {
+      console.error("Error logging in:", error);
+      alert("Login failed. Please try again.");
     }
   };
   

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Container, TextField, Button, Typography, Box, Paper } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -17,23 +18,34 @@ const Register = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const { name, email, password, confirmPassword, role } = formData;
-  
+
     if (password !== confirmPassword) {
       alert("Passwords do not match!");
       return;
     }
-  
-    // Save the user data in localStorage (for testing purposes)
-    const userData = { name, email, password, role };
-    localStorage.setItem("user", JSON.stringify(userData));
-  
-    alert("Registration Successful!");
-    navigate("/login", { state: { role } }); // Pass the role to login page
+
+    try {
+      // Send a POST request to JSON Server to save the user
+      const response = await axios.post("http://localhost:3001/users", {
+        name,
+        email,
+        password,
+        role,
+      });
+
+      if (response.status === 201) {
+        alert("Registration Successful!");
+        navigate("/login", { state: { role } }); // Pass the role to login page
+      }
+    } catch (error) {
+      console.error("Error registering user:", error);
+      alert("Registration failed. Please try again.");
+    }
   };
-  
+
   return (
     <Container maxWidth="sm">
       <Paper elevation={3} sx={{ padding: 4, marginTop: 8, textAlign: "center" }}>
