@@ -17,7 +17,7 @@ const Home = () => {
         <Button 
           variant="contained" 
           color="primary" 
-          onClick={() => navigate("/jobs")}
+          onClick={() => navigate("/joblist")}
         >
           Browse Jobs
         </Button>

@@ -3,6 +3,7 @@ import Home from "./pages/home";
 import JobList from "./pages/joblist";
 import JobDetails from "./pages/jobdetails";
 import PostJob from "./pages/postjob";
+import Login from "./pages/login";
 import Joblistemployer from "./pages/joblistemployer";
 import JobDetailsemployer from "./pages/jobdetailsemployer";
 import { useState, useEffect } from "react";
@@ -23,7 +24,8 @@ const App = () => {
     <Router>
       <Routes>
         {/* General Pages */}
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Login />} />
+        <Route path="/Home" element={<Home />} />
         <Route path="/joblist" element={<JobList role={role} />} />
         <Route path="/jobdetails/:id" element={<JobDetails role={role} />} />
 
