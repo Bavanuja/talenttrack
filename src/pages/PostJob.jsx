@@ -46,10 +46,10 @@ function PostJob() {
     try {
       if (existingJob) {
         
-        await axios.put(`http://localhost:3001/jobs/${job.id}`, job);
+        await axios.put(`http://13.51.196.196:3001/jobs/${job.id}`, job);
       } else {
         
-        await axios.post("http://localhost:3001/jobs", job);
+        await axios.post("http://13.51.196.196:3001/jobs", job);
       }
       alert("Job posted successfully!");
       navigate("/joblist");

@@ -9,7 +9,7 @@ function JobDetails() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3001/jobs/${id}`)
+      .get(`http://13.51.196.196:3001/jobs/${id}`)
       .then((res) => setJob(res.data))
       .catch((err) => console.error("Error fetching job details:", err));
   }, [id]);

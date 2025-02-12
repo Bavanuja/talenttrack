@@ -9,7 +9,7 @@ function Dashboard() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3001/jobs?postedBy=${currentUser.id}`)
+      .get(`http://13.51.196.196:3001/jobs?postedBy=${currentUser.id}`)
       .then((res) => setJobs(res.data))
       .catch((err) => console.error("Error fetching dashboard jobs:", err));
   }, [currentUser.id]);

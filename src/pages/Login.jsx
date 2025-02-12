@@ -15,7 +15,7 @@ function Login() {
     try {
       
       const res = await axios.get(
-        `http://localhost:3001/users?email=${credentials.email}&password=${credentials.password}`
+        `http://13.51.196.196:3001/users?email=${credentials.email}&password=${credentials.password}`
       );
       if (res.data.length > 0) {
         const user = res.data[0];

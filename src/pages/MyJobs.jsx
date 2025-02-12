@@ -31,14 +31,14 @@ function MyJobs() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3001/jobs?postedBy=${loggedInUser.id}`)
+      .get(`http://13.51.196.196:3001/jobs?postedBy=${loggedInUser.id}`)
       .then((res) => setJobs(res.data))
       .catch((err) => console.error("Error fetching my jobs:", err));
   }, [loggedInUser.id]);
 
   const handleDelete = async (jobId) => {
     try {
-      await axios.delete(`http://localhost:3001/jobs/${jobId}`);
+      await axios.delete(`http://13.51.196.196:3001/jobs/${jobId}`);
       setJobs((prevJobs) => prevJobs.filter((job) => job.id !== jobId));
     } catch (error) {
       console.error("Error deleting job:", error);
@@ -68,7 +68,7 @@ function MyJobs() {
   
   const handleEditSubmit = async (jobId) => {
     try {
-      await axios.put(`http://localhost:3001/jobs/${jobId}`, {
+      await axios.put(`http://13.51.196.196:3001/jobs/${jobId}`, {
         ...jobs.find((j) => j.id === jobId),
         ...editFormData,
       });

@@ -13,11 +13,11 @@ function Register() {
     e.preventDefault();
     try {
      
-      const res = await axios.get(`http://localhost:3001/users?email=${user.email}`);
+      const res = await axios.get(`http://13.51.196.196:3001/users?email=${user.email}`);
       if (res.data.length > 0) {
         alert("User already exists! Please log in.");
       } else {
-        await axios.post("http://localhost:3001/users", user);
+        await axios.post("http://13.51.196.196:3001/users", user);
         alert("Registration successful!");
         navigate("/");
       }

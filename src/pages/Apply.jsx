@@ -27,7 +27,7 @@ function Apply() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3001/jobs/${id}`)
+      .get(`http://13.51.196.196:3001/jobs/${id}`)
       .then((res) => setJob(res.data))
       .catch((err) => console.error("Error fetching job for application:", err));
   }, [id]);
@@ -59,7 +59,7 @@ function Apply() {
       };
 
     try {
-      const res = await axios.get(`http://localhost:3001/jobs/${id}`);
+      const res = await axios.get(`http://13.51.196.196:3001/jobs/${id}`);
       const currentJob = res.data;
 
       const updatedApplications = currentJob.applications
@@ -68,7 +68,7 @@ function Apply() {
       const updatedJob = { ...currentJob, applications: updatedApplications };
 
       
-      await axios.put(`http://localhost:3001/jobs/${id}`, updatedJob);
+      await axios.put(`http://13.51.196.196:3001/jobs/${id}`, updatedJob);
 
       alert("Application submitted successfully!");
       navigate("/joblist");
