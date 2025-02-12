@@ -1,0 +1,38 @@
+{
+  "users": [
+    {
+      "id": "6244",
+      "name": "bavanuja",
+      "email": "bbavanuja@gmail.com",
+      "password": "1234"
+    },
+    {
+      "id": "5930",
+      "name": "arushan",
+      "email": "rockarush2@gmail.com",
+      "password": "0000"
+    }
+  ],
+  "jobs": [
+    {
+      "id": "a9fa",
+      "title": "SE",
+      "company": "99x",
+      "location": "Colombo",
+      "salary": "100000",
+      "about": "we are expecting a well experienced candidates",
+      "postedBy": "6244",
+      "postedOn": "2/12/2025",
+      "applications": [
+        {
+          "applicantName": "banu",
+          "applicantEmail": "abc@gmail.com",
+          "applicantPhone": "bvnvjh",
+          "applicantAddress": "dn,.DN.",
+          "applicantLinkedIn": "GHDFHJFHJADG",
+          "applicantCoverLetter": "ABDJA"
+        }
+      ]
+    }
+  ]
+}
